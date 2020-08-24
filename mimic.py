@@ -20,7 +20,11 @@ You can try adding in line breaks around 70 columns so the output looks
 better.
 """
 
-__author__ = "???"
+__author__ = """Darrell Purcell with help from
+https://stackoverflow.com/
+questions/24928585/python-for-loop-without-index-and-item
+https://www.tutorialspoint.com/python/number_randrange.htm
+and JT on resolving Key Error."""
 
 
 import random
@@ -45,8 +49,26 @@ def create_mimic_dict(filename):
                 "who" : ["knows"]
             }
     """
-    # +++your code here+++
-    pass
+
+    mimic_dict = {}
+    start = True
+    with open(filename, 'r') as f:
+        for line in f:
+            i = 0
+            word_list = line.split()
+            for word in word_list:
+                if start:
+                    mimic_dict[''] = [word_list[i]]
+                    mimic_dict[word] = [word_list[i + 1]]
+                    i += 1
+                    start = False
+                elif word not in mimic_dict.keys() and i < len(word_list) - 1:
+                    mimic_dict[word] = [word_list[i + 1]]
+                    i += 1
+                elif i < len(word_list) - 1:
+                    mimic_dict[word] += [word_list[i + 1]]
+                    i += 1
+    return mimic_dict
 
 
 def print_mimic_random(mimic_dict, num_words):
@@ -58,8 +80,18 @@ def print_mimic_random(mimic_dict, num_words):
         - Randomly select a new word from the next-list
         - Repeat this process num_words times
     """
-    # +++your code here+++
-    pass
+    start_word = ''
+    start_dict_word = mimic_dict[start_word][0]
+    print(start_dict_word, end=' ')
+    next_list = mimic_dict[start_dict_word]
+    rand = random.randrange(0, len(next_list))
+    next_list_word = next_list[rand]
+    print(next_list_word, end=' ')
+    for __ in range(0, num_words - 2):
+        next_list = mimic_dict.get(next_list_word, start_dict_word)
+        rand = random.randrange(0, len(next_list))
+        next_list_word = next_list[rand]
+        print(next_list_word, end=' ')
 
 
 def main(args):
