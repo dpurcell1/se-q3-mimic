@@ -22,7 +22,9 @@ better.
 
 __author__ = """Darrell Purcell with help from
 https://stackoverflow.com/
-questions/24928585/python-for-loop-without-index-and-item"""
+questions/24928585/python-for-loop-without-index-and-item
+https://www.tutorialspoint.com/python/number_randrange.htm
+and JT on resolving Key Error."""
 
 
 import random
